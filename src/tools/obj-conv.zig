@@ -30,10 +30,10 @@ pub fn main() !u8 {
     var mtl_file = try std.fs.cwd().openFile(mtl_file_name, .{});
     defer mtl_file.close();
 
-    var model = try wavefront_obj.load(allocator, obj_file.inStream());
+    var model = try wavefront_obj.load(allocator, obj_file.reader());
     defer model.deinit();
 
-    var materials = try wavefront_obj.loadMaterials(allocator, mtl_file.inStream());
+    var materials = try wavefront_obj.loadMaterials(allocator, mtl_file.reader());
     defer materials.deinit();
 
     // Precompute and optimize model data:
@@ -138,7 +138,7 @@ pub fn main() !u8 {
     var mdl_file = try std.fs.cwd().createFile(out_file, .{});
     defer mdl_file.close();
 
-    var stream = mdl_file.outStream();
+    var stream = mdl_file.writer();
 
     // design goal for the file format:
     // - in-memory representation is the file content

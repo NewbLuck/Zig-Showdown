@@ -132,7 +132,7 @@ pub fn main() !u8 {
     var snd_file = try std.fs.cwd().createFile(out_file, .{});
     defer snd_file.close();
 
-    var stream = snd_file.outStream();
+    var stream = snd_file.writer();
 
     // CHANGES IN HERE MUST BE REFLECTED IN
     // src/client/resources/Sound.zig

@@ -336,11 +336,11 @@ pub fn submitTransition(self: *Self, render_target: Renderer.RenderTarget, trans
             width: u16,
             height: u16,
 
-            pub inline fn setPixel(pv: PV, x: usize, y: usize, color: Pixel) void {
+            pub fn setPixel(pv: PV, x: usize, y: usize, color: Pixel) callconv(.Inline) void {
                 pv.data[pv.width * y + x] = @bitCast(u32, color);
             }
 
-            pub inline fn getPixel(pv: PV, x: usize, y: usize) Pixel {
+            pub fn getPixel(pv: PV, x: usize, y: usize) callconv(.Inline) Pixel {
                 return @bitCast(Pixel, self.data[pv.width * y + x]);
             }
 

@@ -29,7 +29,7 @@ pub fn main() !u8 {
     var tex_file = try std.fs.cwd().createFile(out_file, .{});
     defer tex_file.close();
 
-    var stream = tex_file.outStream();
+    var stream = tex_file.writer();
 
     // design goal for the file format:
     // - in-memory representation is the file content

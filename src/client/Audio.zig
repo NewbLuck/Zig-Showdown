@@ -324,7 +324,7 @@ const SoundEvent = struct {
 /// Each event is queued into the right slot so the events will be queued first-to-last.
 const EventQueue = struct {
     head: ?*SoundEvent,
-    mutex: std.Mutex,
+    mutex: std.Thread.Mutex.AtomicMutex,
 
     fn init() EventQueue {
         return EventQueue{
@@ -383,7 +383,7 @@ const EventQueue = struct {
 
 const EventQueueIterator = struct {
     queue: *EventQueue,
-    held: std.Mutex.Held,
+    held: std.Thread.Mutex.AtomicMutex.Held,
 
     previous: ?*SoundEvent = null,
     current: ?*SoundEvent = null,
@@ -432,7 +432,7 @@ const EventQueueIterator = struct {
 const EventPool = struct {
     arena: std.heap.ArenaAllocator,
     free_list: ?*SoundEvent,
-    mutex: std.Mutex,
+    mutex: std.Thread.Mutex,
 
     fn init(allocator: *std.mem.Allocator) EventPool {
         return EventPool{

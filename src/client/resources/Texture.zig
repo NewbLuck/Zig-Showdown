@@ -20,7 +20,7 @@ data_mutable: bool,
 
 renderer_detail: Renderer.details.Texture,
 
-pub inline fn data(self: Self) []align(4) const Pixel {
+pub fn data(self: Self) callconv(.Inline) []align(4) const Pixel {
     return self.pixels;
 }
 
